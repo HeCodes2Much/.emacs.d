@@ -111,7 +111,7 @@ Suppress warnings about functions being redefined:
 
 Finally, I disable the bell for certain commands that ring it frequently:
 #+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 
+(setq ring-bell-function
       (lambda ()
 	(unless (memq this-command
 		      '(isearch-abort
@@ -254,18 +254,18 @@ I like to use the dracula theme:
 (use-package dracula-theme
   :ensure t
   :config
-  (require 'evil)
-  (evil-mode 1))
+  (load-theme 'dracula t))
 #+END_SRC
 
 *** Evil Mode
-This will enable vim kids to be used
+This will enable vim keys to be used
 
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :ensure t
   :config
-  (load-theme 'dracula t))
+  (require 'evil)
+  (evil-mode 1))
 #+END_SRC
 
 As part of this I also enable a nicer looking modeline, using the spaceline package extracted from Spacemacs. I defer loading this slightly to speed up startup. I use Helm (to be configured later) so I enable the integration here too.
@@ -390,7 +390,7 @@ I use its caching functionality to speed up navigation on large projects, so I h
   (defun projectile-switch-project-setup ()
     (projectile-invalidate-cache -1))
   (add-hook 'projectile-after-switch-project-hook #'projectile-switch-project-setup)
-  
+
   (defun projectile-init-setup ()
     (mapc (lambda (project-root)
             (remhash project-root projectile-project-type-cache)
