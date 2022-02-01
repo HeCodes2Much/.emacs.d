@@ -1,0 +1,10 @@
+*
+!snippets/
+!snippets/*
+!snippets/*/*
+!.gitignore
+!custom.el
+!early-init.el
+!init.el
+!README.org
+!LICENCE
