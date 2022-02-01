@@ -176,9 +176,10 @@ First I customize the title of the Emacs window (aka "frame") to show the versio
 
 Next I disable the toolbar, scrollbar, and menu as I find them unncessary:
 #+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
 (scroll-bar-mode -1)
-(menu-bar-mode nil)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
 #+END_SRC
 
 Then I enable hl-line-mode to easily see what line the cursor is on:
@@ -189,6 +190,20 @@ Then I enable hl-line-mode to easily see what line the cursor is on:
 Next, enable display of line and column numbers:
 #+BEGIN_SRC emacs-lisp
 (global-linum-mode)
+(global-display-line-numbers-mode t)
+(column-number-mode t)
+(setq display-line-numbers-type 'visual)
+#+END_SRC
+
+Next, transient mark mode:
+#+BEGIN_SRC emacs-lisp
+(transient-mark-mode -1)
+#+END_SRC
+
+Then, a few extra modes i just like to have
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode t)
+(size-indication-mode t)
 #+END_SRC
 
 Then enable navigating through subwords when text is in camel case:
@@ -199,7 +214,7 @@ Then enable navigating through subwords when text is in camel case:
 Then enable the mouse wheel:
 #+BEGIN_SRC emacs-lisp
 (mouse-wheel-mode t)
-(setq mouse-drag-copy-region nil)
+(setq mouse-drag-copy-region -1)
 #+END_SRC
 
 Next enables font-lock (aka syntax highlighting) globally:
@@ -373,7 +388,7 @@ I use its caching functionality to speed up navigation on large projects, so I h
   (projectile-mode)
   :init
   (defun projectile-switch-project-setup ()
-    (projectile-invalidate-cache nil))
+    (projectile-invalidate-cache -1))
   (add-hook 'projectile-after-switch-project-hook #'projectile-switch-project-setup)
   
   (defun projectile-init-setup ()
