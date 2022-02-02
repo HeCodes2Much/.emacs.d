@@ -252,12 +252,13 @@ Added a custom starter dashboard
   :ensure t
   :config
   (dashboard-setup-startup-hook))
+
+(use-package dashboard-ls)
 #+END_SRC
 
 Setting up the settings for the dashboard
 #+BEGIN_SRC emacs-lisp
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-
+(setq dashboard-projects-backend="projectile")
 ;; Set the title
 (setq dashboard-banner-logo-title "While any text editor can save your files, only Emacs can save your soul!")
 
@@ -269,9 +270,9 @@ Setting up the settings for the dashboard
 
 (require 'dashboard-ls)
 (setq dashboard-items '((bookmarks . 5)
-						(projects . 5)
+			(projects . 5)
                         (agenda . 5)
-						(ls-directories . 15)
+			(ls-directories . 15)
                         (ls-files . 15)))
 
 (setq dashboard-set-navigator t)
