@@ -246,6 +246,52 @@ Finally, turn the cursor into a bar:
   (bar-cursor-mode 1))
 #+END_SRC
 
+Added a custom starter dashboard
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+#+END_SRC
+
+Setting up the settings for the dashboard
+#+BEGIN_SRC emacs-lisp
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+
+;; Set the title
+(setq dashboard-banner-logo-title "While any text editor can save your files, only Emacs can save your soul!")
+
+;; Set the banner
+(setq dashboard-startup-banner "~/.config/emacs/image/emacs.svg")
+
+;; To disable shortcut "jump" indicators for each section, set
+(setq dashboard-show-shortcuts -1)
+
+(require 'dashboard-ls)
+(setq dashboard-items '((bookmarks . 5)
+						(projects . 5)
+                        (agenda . 5)
+						(ls-directories . 15)
+                        (ls-files . 15)))
+
+(setq dashboard-set-navigator t)
+
+(setq dashboard-navigator-buttons
+      `(;; line1
+        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Homepage"
+         "Browse homepage"
+         (lambda (&rest _) (browse-url "https://github.com/The-Repo-Club/.emacs.d"))))))
+
+(setq dashboard-set-init-info t)
+
+(setq dashboard-footer-messages '("Who the hell uses Vim anyways? Go Evil."))
+(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                   :height 1.1
+                                                   :v-adjust -0.05
+                                                   :face 'font-lock-keyword-face))
+#+END_SRC
+
 *** Color Theme
 The final component of the appearance tweaks is to enable a color theme.
 
