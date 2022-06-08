@@ -65,6 +65,19 @@ First, I change the behavior of Emacs startup so it opens to a plain-text scratc
 (setq initial-major-mode 'text-mode)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
+(global-visual-line-mode 1)
+
+(setq mode-line-format
+          (list
+           ;; name of major mode
+           "%m: "
+           ;; buffer name
+           "buffer %b, "
+           ;; line number
+           "line %l "
+           "-- user: "
+           ;; user login name/ID
+           (getenv "USER")))
 #+END_SRC
 
 Enable replacing selected text when typing/pasting:
@@ -256,6 +269,13 @@ Added a custom starter dashboard
 (use-package dashboard-ls)
 #+END_SRC
 
+Added a custom modeline bar
+#+BEGIN_SRC emacs-lisp
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+END_SRC
+
 Setting up the settings for the dashboard
 #+BEGIN_SRC emacs-lisp
 (setq dashboard-projects-backend="projectile")
@@ -316,16 +336,6 @@ This will enable vim keys to be used
   :config
   (require 'evil)
   (evil-mode 1))
-#+END_SRC
-
-As part of this I also enable a nicer looking modeline, using the spaceline package extracted from Spacemacs. I defer loading this slightly to speed up startup. I use Helm (to be configured later) so I enable the integration here too.
-#+BEGIN_SRC emacs-lisp
-(use-package spaceline
-  :ensure t
-  :defer 2
-  :config
-  (spaceline-emacs-theme)
-  (spaceline-helm-mode))
 #+END_SRC
 
 And at last I enable rainbox-delimiters-mode to color each successive pair of brackets differently. I find this useful for visually scanning blocks of code.
@@ -414,6 +424,7 @@ YASnippet allows automatic expansion of text snippets. I don't use this much, bu
   (yas-global-mode 1)
   :bind (("C-c y" . yas-expand-from-trigger-key)))
 #+END_SRC
+
 *** Project Management
 When working in Emacs I am generally working on a specific project. I've added some packages for making this easier.
 
@@ -465,6 +476,7 @@ I've added all-the-icons as well for a nicer looking tree view with icons.
   :after (all-the-icons))
 
 #+END_SRC
+
 *** Searching and Navigation
 Now that I have some notion of a project, I want to be able to search across it. I use ripgrep on the command line, and the rg package is the Emacs interface to it:
 #+BEGIN_SRC emacs-lisp
@@ -638,6 +650,7 @@ Emacs doesn't have a good built-in mode for YAML either
 
 ** Miscellaneous
 Finally we have some last miscellaneous settings to configure.
+
 *** Garbage Collection
 Finally we set the GC threshold lower for interactive use (this undoes a setting from =early-init.el=). This needs to be the last thing in the file to get the benefits of faster startup.
 #+BEGIN_SRC emacs-lisp
