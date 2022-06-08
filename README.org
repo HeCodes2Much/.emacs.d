@@ -65,7 +65,6 @@ First, I change the behavior of Emacs startup so it opens to a plain-text scratc
 (setq initial-major-mode 'text-mode)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-(global-visual-line-mode 1)
 
 (setq mode-line-format
           (list
@@ -93,6 +92,11 @@ Enable the OS clipboard when copying/cutting text:
 Require a final newline in files:
 #+BEGIN_SRC emacs-lisp
 (setq require-final-newline t)
+#+END_SRC
+
+Enable visual line mode:
+#+BEGIN_SRC emacs-lisp
+(global-visual-line-mode 1)
 #+END_SRC
 
 Put backup files in a temporary directory instead of the current directory:
@@ -650,6 +654,18 @@ Emacs doesn't have a good built-in mode for YAML either
 
 ** Miscellaneous
 Finally we have some last miscellaneous settings to configure.
+
+*** Ergoemacs
+Enable ergoemacs mode:
+#+BEGIN_SRC emacs-lisp
+(use-package ergoemacs-mode
+  :ensure t
+  :config
+  (ergoemacs-mode 1))
+
+(setq ergoemacs-theme nil)
+(setq ergoemacs-keyboard-layout "gb")
+#+END_SRC
 
 *** Garbage Collection
 Finally we set the GC threshold lower for interactive use (this undoes a setting from =early-init.el=). This needs to be the last thing in the file to get the benefits of faster startup.
