@@ -296,13 +296,16 @@ Setting up the settings for the dashboard
 *** Color Theme
 The final component of the appearance tweaks is to enable a color theme.
 
-I like to use the dracula theme:
+I like to use the minimal-mistakes theme:
 #+BEGIN_SRC emacs-lisp
-(use-package dracula-theme
-  :ensure t
-  :config
-  (load-theme 'dracula t))
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
+(load-theme 'minimal-mistakes t)
 #+END_SRC
+
+# (use-package minimal-mistakes-theme
+#   :ensure t
+#   :config
+#   (load-theme 'minimal-mistakes t))
 
 *** Evil Mode
 This will enable vim keys to be used
@@ -414,16 +417,7 @@ YASnippet allows automatic expansion of text snippets. I don't use this much, bu
 *** Project Management
 When working in Emacs I am generally working on a specific project. I've added some packages for making this easier.
 
-First is Perspective. This allows defining "groups" of buffers and activating one group at a time. This is convenient for switching between projects without losing my open buffers:
-#+BEGIN_SRC emacs-lisp
-(use-package perspective
-  :ensure t
-  :config
-  (persp-mode)
-  (persp-turn-on-modestring))
-#+END_SRC
-
-Next is Projectile. This is the core project management package for Emacs. It figures out projects automatically based on Git repositories and then allows better navigation within the project.
+First is Projectile. This is the core project management package for Emacs. It figures out projects automatically based on Git repositories and then allows better navigation within the project.
 
 I use its caching functionality to speed up navigation on large projects, so I have added some custom functions to invalidate the cache when changing projects and on Emacs startup.
 #+BEGIN_SRC emacs-lisp
